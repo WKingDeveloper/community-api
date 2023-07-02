@@ -10,26 +10,26 @@ import java.sql.Timestamp
 data class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0,
+    val id: Long = 0,
 
     @Column(nullable = false, length = 512)
-    var title: String = "",
+    val title: String = "",
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    var content: String = "",
+    val content: String = "",
 
     @Column(nullable = false, columnDefinition = "INT UNSIGNED DEFAULT 0")
-    var likes: Int = 0,
+    val likes: Int = 0,
 
     @Column(nullable = false, columnDefinition = "INT UNSIGNED DEFAULT 0")
-    var views: Int = 0,
+    val views: Int = 0,
 
     @Column(nullable = false)
-    var status: Int = 0,
+    val status: Int = 0,
 
-    var deletedAt: Timestamp? = null,
+    val deletedAt: Timestamp? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardId", referencedColumnName = "id", insertable = false, updatable = false)
-    var board: Board? = null
+    val board: Board? = null
 )

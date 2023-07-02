@@ -11,23 +11,23 @@ import java.sql.Timestamp
 class Board(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0,
+    val id: Long = 0,
 
     @Column(nullable = false, length = 16)
-    var name: String = "",
+    val name: String = "",
 
-    var parentBoardId: Long? = null,
-
-    @Column(nullable = false)
-    var displayOrder: Int = 0,
+    val parentBoardId: Long? = null,
 
     @Column(nullable = false)
-    var status: Int = 0,
+    val displayOrder: Int = 0,
 
-    var deletedAt: Timestamp? = null,
+    @Column(nullable = false)
+    val status: Int = 0,
+
+    val deletedAt: Timestamp? = null,
 
     @OneToMany(mappedBy = "board")
-    var posts: List<Post> = emptyList()
+    val posts: List<Post> = emptyList()
 
 ) : EntityBase() {
 }
