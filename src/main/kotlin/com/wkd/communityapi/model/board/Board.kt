@@ -1,5 +1,6 @@
 package com.wkd.communityapi.model.board
 
+import com.wkd.communityapi.model.common.CommonState
 import com.wkd.communityapi.model.common.EntityBase
 import com.wkd.communityapi.model.post.Post
 import jakarta.persistence.*
@@ -22,7 +23,7 @@ class Board(
     val displayOrder: Int = 0,
 
     @Column(nullable = false)
-    val status: Int = 0,
+    val status: Int = CommonState.ACTIVE.value,
 
     val deletedAt: Timestamp? = null,
 
