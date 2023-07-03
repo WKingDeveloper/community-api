@@ -3,6 +3,7 @@ scalar Timestamp
 
 type Query {
     board(id: ID!): Board
+    boards(page: Int, size: Int) : BoardConnection!
 }
 
 type Mutation {
@@ -22,6 +23,22 @@ input BoardParamInput {
     name: String!
     parentBoardId: Long
     displayOrder: Int!
+}
+
+type BoardConnection {
+    totalCount: Int!
+    pageInfo: PageInfo!
+    edges: [BoardEdge!]!
+}
+
+type BoardEdge {
+    cursor: String!
+    node: Board!
+}
+
+type PageInfo {
+    hasNextPage: Boolean!
+    endCursor: String
 }
 
 enum CommonState {

@@ -42,4 +42,12 @@ class BoardServiceTest @Autowired constructor(
         assertEquals(0, result.displayOrder)
     }
 
+    @Test
+    fun getList() {
+        val result = service.getList(1, 3)
+
+        assertEquals(3, result.size)
+        assertEquals(7, result.totalElements)
+    }
+
 }
