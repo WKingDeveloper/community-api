@@ -2,6 +2,7 @@ package com.wkd.communityapi.service.board
 
 import com.wkd.communityapi.model.board.BoardParam
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
@@ -31,4 +32,14 @@ class BoardServiceTest @Autowired constructor(
         assertEquals(if (parentBoardId == 0L) null else parentBoardId, result.parentBoardId)
         assertEquals(displayOrder, result.displayOrder)
     }
+
+    @Test
+    fun get() {
+        val result = service.get(1L)
+        assertEquals(1L, result.id)
+        assertEquals("지식", result.name)
+        assertEquals(null, result.parentBoardId)
+        assertEquals(0, result.displayOrder)
+    }
+
 }

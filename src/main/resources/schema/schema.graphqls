@@ -1,6 +1,9 @@
 scalar Long
 scalar Timestamp
 
+type Query {
+    board(id: ID!): Board
+}
 
 type Mutation {
     createBoard(param: BoardParamInput!): Board!

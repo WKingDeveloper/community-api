@@ -21,4 +21,9 @@ class BoardService(
 
         return repository.save(board)
     }
+
+    fun get(id: Long): Board {
+        return repository.findById(id)
+            .orElseThrow { RuntimeException("Board not found with id: $id") }
+    }
 }

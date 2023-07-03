@@ -1,4 +1,4 @@
-package com.wkd.communityapi.graphql.mutation.board
+package com.wkd.communityapi.graphql.resolver.board
 
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
