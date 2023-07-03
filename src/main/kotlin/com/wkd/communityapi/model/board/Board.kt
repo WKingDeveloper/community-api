@@ -17,18 +17,19 @@ class Board(
     @Column(nullable = false, length = 16)
     val name: String = "",
 
+    @Column
     val parentBoardId: Long? = null,
 
     @Column(nullable = false)
     val displayOrder: Int = 0,
 
     @Column(nullable = false)
-    val status: Int = CommonState.ACTIVE.value,
+    val status: CommonState = CommonState.ACTIVE,
 
+    @Column
     val deletedAt: Timestamp? = null,
 
     @OneToMany(mappedBy = "board")
     val posts: List<Post> = emptyList()
 
-) : EntityBase() {
-}
+) : EntityBase()

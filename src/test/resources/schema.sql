@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `Board` (
     `version` bigint DEFAULT 0,
     `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `deletedAt` timestamp DEFAULT NULL,
+    `deletedAt` timestamp NULL DEFAULT NULL,
     PRIMARY KEY (`id`),
     CONSTRAINT `fk_board_parentBoardId` FOREIGN KEY (`parentBoardId`) REFERENCES `Board` (`id`)
     );
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `Post` (
     `version` bigint DEFAULT 0,
     `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `deletedAt` timestamp DEFAULT NULL,
+    `deletedAt` timestamp NULL DEFAULT NULL,
     PRIMARY KEY (`id`),
     CONSTRAINT `fk_Post_boardId` FOREIGN KEY (`boardId`) REFERENCES `Board` (`id`)
     );

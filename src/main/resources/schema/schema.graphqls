@@ -1,2 +1,29 @@
-type Query {
+scalar Long
+scalar Timestamp
+
+
+type Mutation {
+    createBoard(param: BoardParamInput!): Board!
 }
+
+type Board {
+    id: ID!
+    name: String!
+    parentBoardId: Long
+    displayOrder: Int!
+    status: CommonState!
+    deletedAt: Timestamp
+}
+
+input BoardParamInput {
+    name: String!
+    parentBoardId: Long
+    displayOrder: Int!
+}
+
+enum CommonState {
+    ACTIVE
+    INACTIVE
+    DELETED
+}
+
