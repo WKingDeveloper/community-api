@@ -6,5 +6,4 @@ data class BoardParam(
     val parentBoardId: Long?,
 
     val indexNo: Int
-
 )

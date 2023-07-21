@@ -1,6 +1,7 @@
 package com.wkd.communityapi.model.post
 
 import com.wkd.communityapi.model.board.Board
+import com.wkd.communityapi.model.common.CommonState
 import jakarta.persistence.*
 import org.hibernate.annotations.Where
 import java.sql.Timestamp
@@ -25,11 +26,11 @@ data class Post(
     val views: Int = 0,
 
     @Column(nullable = false)
-    val status: Int = 0,
+    val status: CommonState = CommonState.ACTIVE,
 
     val deletedAt: Timestamp? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "boardId", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "boardId")
     val board: Board? = null
 )

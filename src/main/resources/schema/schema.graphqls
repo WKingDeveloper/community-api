@@ -8,6 +8,7 @@ type Query {
 
 type Mutation {
     createBoard(param: BoardParamInput!): Board!
+    createPost(param: PostCreateParamInput!): Post!
 }
 
 type Board {
@@ -19,12 +20,6 @@ type Board {
     deletedAt: Timestamp
 }
 
-input BoardParamInput {
-    name: String!
-    parentBoardId: Long
-    indexNo: Int!
-}
-
 type BoardConnection {
     totalCount: Int!
     pageInfo: PageInfo!
@@ -34,6 +29,40 @@ type BoardConnection {
 type BoardEdge {
     cursor: String!
     node: Board!
+}
+
+input BoardParamInput {
+    name: String!
+    parentBoardId: Long
+    indexNo: Int!
+}
+
+type Post {
+    id: ID!
+    title: String!
+    content: String!
+    likes: Int!
+    views: Int!
+    board: Board!
+    status: CommonState!
+    deletedAt: Timestamp
+}
+
+type PostConnection {
+    totalCount: Int!
+    pageInfo: PageInfo!
+    edges: [PostEdge!]!
+}
+
+type PostEdge {
+    cursor: String!
+    node: Post!
+}
+
+input PostCreateParamInput {
+    title: String!
+    content: String!
+    boardId: Long!
 }
 
 type PageInfo {
