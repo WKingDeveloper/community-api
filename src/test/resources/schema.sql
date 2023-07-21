@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `Board` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `name` varchar(16) NOT NULL,
     `parentBoardId` bigint DEFAULT NULL,
-    `displayOrder` int NOT NULL,
+    `indexNo` int NOT NULL,
     `status` int NOT NULL,
     `version` bigint DEFAULT 0,
     `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

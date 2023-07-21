@@ -4,8 +4,8 @@ import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
 import com.netflix.graphql.dgs.DgsQuery
 import com.netflix.graphql.dgs.InputArgument
-import com.wkd.akiriapi.annotation.Logger
-import com.wkd.akiriapi.annotation.Logger.Companion.logger
+import com.wkd.communityapi.annotation.Logger
+import com.wkd.communityapi.annotation.Logger.Companion.logger
 import com.wkd.communityapi.graphql.relay.Connection
 import com.wkd.communityapi.graphql.relay.PagingTool
 import com.wkd.communityapi.model.board.Board

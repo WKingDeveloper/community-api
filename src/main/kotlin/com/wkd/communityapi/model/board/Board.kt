@@ -21,7 +21,7 @@ class Board(
     val parentBoardId: Long? = null,
 
     @Column(nullable = false)
-    val displayOrder: Int = 0,
+    val indexNo: Int = 0,
 
     @Column(nullable = false)
     val status: CommonState = CommonState.ACTIVE,

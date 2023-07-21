@@ -19,7 +19,7 @@ class BoardService(
         val board = Board(
             name = param.name,
             parentBoardId = param.parentBoardId,
-            displayOrder = param.displayOrder
+            indexNo = param.indexNo
         )
 
         return repository.save(board)

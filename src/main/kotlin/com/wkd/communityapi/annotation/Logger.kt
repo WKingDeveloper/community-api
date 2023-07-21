@@ -1,4 +1,4 @@
-package com.wkd.akiriapi.annotation
+package com.wkd.communityapi.annotation
 
 import org.slf4j.LoggerFactory
 

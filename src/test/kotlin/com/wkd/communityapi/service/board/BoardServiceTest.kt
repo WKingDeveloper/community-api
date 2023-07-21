@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest(properties = ["spring.config.location=classpath:application-test.yml"])
-//@DataJpaTest(properties = ["spring.config.location=classpath:application-test.yml"])
 class BoardServiceTest @Autowired constructor(
     private val service: BoardService,
 ) {
@@ -18,11 +17,11 @@ class BoardServiceTest @Autowired constructor(
         value = ["8,정보,0,0", "9,질문답변,0,8", "10,꿀팁,1,8"]
     )
     @ParameterizedTest
-    fun create(id: Long, name: String, parentBoardId: Long, displayOrder: Int) {
+    fun create(id: Long, name: String, parentBoardId: Long, indexNo: Int) {
         val param = BoardParam(
             name = name,
             parentBoardId = if (parentBoardId == 0L) null else parentBoardId,
-            displayOrder = displayOrder
+            indexNo = indexNo
         )
 
         val result = service.create(param)
@@ -30,7 +29,7 @@ class BoardServiceTest @Autowired constructor(
         assertEquals(id, result.id)
         assertEquals(name, result.name)
         assertEquals(if (parentBoardId == 0L) null else parentBoardId, result.parentBoardId)
-        assertEquals(displayOrder, result.displayOrder)
+        assertEquals(indexNo, result.indexNo)
     }
 
     @Test
@@ -39,7 +38,7 @@ class BoardServiceTest @Autowired constructor(
         assertEquals(1L, result.id)
         assertEquals("지식", result.name)
         assertEquals(null, result.parentBoardId)
-        assertEquals(0, result.displayOrder)
+        assertEquals(0, result.indexNo)
     }
 
     @Test

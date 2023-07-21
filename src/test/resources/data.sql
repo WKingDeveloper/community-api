@@ -1,4 +1,4 @@
-INSERT INTO `Board` (`id`, `name`, `parentBoardId`, `displayOrder`, `status`, `version`, `createdAt`, `updatedAt`,
+INSERT INTO `Board` (`id`, `name`, `parentBoardId`, `indexNo`, `status`, `version`, `createdAt`, `updatedAt`,
                      `deletedAt`)
 VALUES (1, '지식', NULL, 0, 1, 0, '2023-07-02 15:57:01', '2023-07-02 15:57:01', NULL),
        (2, '이벤트', NULL, 1, 1, 0, '2023-07-02 15:57:02', '2023-07-02 15:57:02', NULL),

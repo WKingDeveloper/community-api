@@ -5,6 +5,6 @@ data class BoardParam(
 
     val parentBoardId: Long?,
 
-    val displayOrder: Int
+    val indexNo: Int
 
 )
