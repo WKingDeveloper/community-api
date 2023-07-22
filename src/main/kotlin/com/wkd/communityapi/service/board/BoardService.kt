@@ -28,7 +28,7 @@ class BoardService(
 
     fun get(id: Long): Board {
         return repository.findById(id)
-            .orElseThrow { NotFoundBoardException(boardId = id) }
+            .orElseThrow { NotFoundBoardException() }
     }
 
     fun getList(page: Int, size: Int): Page<Board> {

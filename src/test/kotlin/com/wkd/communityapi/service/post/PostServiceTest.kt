@@ -1,9 +1,9 @@
-package com.wkd.communityapi.service.Post
+package com.wkd.communityapi.service.post
 
+import com.wkd.communityapi.exception.BadRequestPostCreateException
 import com.wkd.communityapi.exception.NotFoundBoardException
 import com.wkd.communityapi.exception.NotFoundPostException
 import com.wkd.communityapi.model.post.PostCreateParam
-import com.wkd.communityapi.service.post.PostService
 import jakarta.transaction.Transactional
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -46,6 +46,19 @@ class PostServiceTest @Autowired constructor(
                     title = "제목",
                     content = "내용",
                     boardId = 10L
+                )
+            )
+        }
+    }
+
+    @Test
+    fun `create failed - BadRequest Board Id`() {
+        assertThrows(BadRequestPostCreateException::class.java) {
+            service.create(
+                PostCreateParam(
+                    title = "제목",
+                    content = "내용",
+                    boardId = 5L
                 )
             )
         }
