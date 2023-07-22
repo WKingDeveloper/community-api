@@ -2,16 +2,18 @@ scalar Long
 scalar Timestamp
 
 type Query {
-    board(id: ID!): Board
-    boards(page: Int, size: Int) : BoardConnection!
-
-    post(id: ID!): Post
-    posts(page: Int, size: Int) : PostConnection!
+    boardContainer: BoardContainer
+    postContainer: PostContainer
 }
 
 type Mutation {
     createBoard(param: BoardParamInput!): Board!
     createPost(param: PostCreateParamInput!): Post!
+}
+
+type BoardContainer {
+    board(id: ID!): Board
+    boards(page: Int, size: Int) : BoardConnection!
 }
 
 type Board {
@@ -39,6 +41,12 @@ input BoardParamInput {
     parentBoardId: Long
     indexNo: Int!
 }
+
+type PostContainer {
+    post(id: ID!): Post
+    posts(page: Int, size: Int) : PostConnection!
+}
+
 
 type Post {
     id: ID!

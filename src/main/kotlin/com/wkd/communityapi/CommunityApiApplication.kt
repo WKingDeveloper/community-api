@@ -12,7 +12,6 @@ fun main(args: Array<String>) {
 
 /**
  * Todo
- * - board,post 스키마 타입 container에 감싸기
  * - Exception 추가
  * - board 응답 형태 변경
  * - user entity 추가

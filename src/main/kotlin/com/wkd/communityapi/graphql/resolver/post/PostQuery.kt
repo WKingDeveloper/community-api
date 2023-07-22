@@ -1,9 +1,6 @@
 package com.wkd.communityapi.graphql.resolver.post
 
-import com.netflix.graphql.dgs.DgsComponent
-import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
-import com.netflix.graphql.dgs.DgsQuery
-import com.netflix.graphql.dgs.InputArgument
+import com.netflix.graphql.dgs.*
 import com.wkd.communityapi.annotation.Logger
 import com.wkd.communityapi.annotation.Logger.Companion.logger
 import com.wkd.communityapi.graphql.relay.Connection
@@ -11,19 +8,29 @@ import com.wkd.communityapi.graphql.relay.PagingTool
 import com.wkd.communityapi.model.post.Post
 import com.wkd.communityapi.service.post.PostService
 
+data class PostContainer(
+    val dummy: String = ""
+)
+
 @Logger
 @DgsComponent
 class PostQuery(
     val postService: PostService
 ) {
+    companion object {
+        const val TYPE_NAME = "PostContainer"
+    }
 
     @DgsQuery
+    fun postContainer() = PostContainer()
+
+    @DgsData(parentType = TYPE_NAME)
     fun post(@InputArgument id: Long, env: DgsDataFetchingEnvironment): Post {
         logger.info("postQuery -> post()")
         return postService.get(id)
     }
 
-    @DgsQuery
+    @DgsData(parentType = TYPE_NAME)
     fun posts(
         env: DgsDataFetchingEnvironment,
         @InputArgument page: Int? = 1,
