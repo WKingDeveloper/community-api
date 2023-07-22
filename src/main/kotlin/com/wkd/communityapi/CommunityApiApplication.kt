@@ -9,3 +9,14 @@ class CommunityApiApplication
 fun main(args: Array<String>) {
     runApplication<CommunityApiApplication>(*args)
 }
+
+/**
+ * Todo
+ * - board,post 스키마 타입 container에 감싸기
+ * - Exception 추가
+ * - board 응답 형태 변경
+ * - user entity 추가
+ * - post에 writerId (user) 추가 (datalodaer 적용)
+ * - post queryDsl 적용
+ * - reviewComment 추가
+ */

@@ -30,7 +30,6 @@ class BoardService(
             .orElseThrow { RuntimeException("Board not found with id: $id") }
     }
 
-    // todo: 응답 결과 부모->자식 구조로 변경
     fun getList(page: Int, size: Int): Page<Board> {
         return repository.findAll(PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")))
     }
