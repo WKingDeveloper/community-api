@@ -1,5 +1,7 @@
 package com.wkd.communityapi.service.post
 
+import com.wkd.communityapi.exception.NotFoundBoardException
+import com.wkd.communityapi.exception.NotFoundPostException
 import com.wkd.communityapi.model.post.Post
 import com.wkd.communityapi.model.post.PostCreateParam
 import com.wkd.communityapi.repository.board.BoardRepository
@@ -21,7 +23,7 @@ class PostService(
         // todo : Exception 처리(하위 자식 board만 가능하도록)
         val board =
             boardRepository.findById(param.boardId)
-                .orElseThrow { RuntimeException("Board not found with id: ${param.boardId}") }
+                .orElseThrow { NotFoundBoardException(boardId = param.boardId) }
 
 
         val post = Post(
@@ -35,7 +37,7 @@ class PostService(
 
     fun get(id: Long): Post {
         return repository.findById(id)
-            .orElseThrow { RuntimeException("Post not found with id: $id") }
+            .orElseThrow { NotFoundPostException(postId = id) }
     }
 
     fun getList(page: Int, size: Int): Page<Post> {

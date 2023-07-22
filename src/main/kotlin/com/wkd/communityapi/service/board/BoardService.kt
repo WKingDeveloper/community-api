@@ -1,5 +1,6 @@
 package com.wkd.communityapi.service.board
 
+import com.wkd.communityapi.exception.NotFoundBoardException
 import com.wkd.communityapi.model.board.Board
 import com.wkd.communityapi.model.board.BoardParam
 import com.wkd.communityapi.repository.board.BoardRepository
@@ -27,7 +28,7 @@ class BoardService(
 
     fun get(id: Long): Board {
         return repository.findById(id)
-            .orElseThrow { RuntimeException("Board not found with id: $id") }
+            .orElseThrow { NotFoundBoardException(boardId = id) }
     }
 
     fun getList(page: Int, size: Int): Page<Board> {

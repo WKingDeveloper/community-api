@@ -1,8 +1,10 @@
 package com.wkd.communityapi.service.board
 
+import com.wkd.communityapi.exception.NotFoundBoardException
 import com.wkd.communityapi.model.board.BoardParam
 import jakarta.transaction.Transactional
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -41,6 +43,11 @@ class BoardServiceTest @Autowired constructor(
         assertEquals("지식", result.name)
         assertEquals(null, result.parentBoardId)
         assertEquals(0, result.indexNo)
+    }
+
+    @Test
+    fun `get failed - NotFound Id`() {
+        assertThrows(NotFoundBoardException::class.java) { service.get(10L) }
     }
 
     @Test

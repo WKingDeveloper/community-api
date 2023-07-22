@@ -1,9 +1,12 @@
 package com.wkd.communityapi.service.Post
 
+import com.wkd.communityapi.exception.NotFoundBoardException
+import com.wkd.communityapi.exception.NotFoundPostException
 import com.wkd.communityapi.model.post.PostCreateParam
 import com.wkd.communityapi.service.post.PostService
 import jakarta.transaction.Transactional
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -36,12 +39,30 @@ class PostServiceTest @Autowired constructor(
     }
 
     @Test
+    fun `create failed - NotFound Board Id`() {
+        assertThrows(NotFoundBoardException::class.java) {
+            service.create(
+                PostCreateParam(
+                    title = "제목",
+                    content = "내용",
+                    boardId = 10L
+                )
+            )
+        }
+    }
+
+    @Test
     fun get() {
         val result = service.get(1L)
         assertEquals(1L, result.id)
         assertEquals("글 제목", result.title)
         assertEquals("글 내용", result.content)
         assertEquals(6, result.board.id)
+    }
+
+    @Test
+    fun `get failed - NotFound Id`() {
+        assertThrows(NotFoundPostException::class.java) { service.get(10L) }
     }
 
     @Test
