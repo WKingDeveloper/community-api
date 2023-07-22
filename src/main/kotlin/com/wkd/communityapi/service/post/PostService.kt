@@ -5,6 +5,9 @@ import com.wkd.communityapi.model.post.PostCreateParam
 import com.wkd.communityapi.repository.board.BoardRepository
 import com.wkd.communityapi.repository.post.PostRepository
 import jakarta.transaction.Transactional
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 
 @Service
@@ -30,12 +33,12 @@ class PostService(
         return repository.save(post)
     }
 
-//    fun get(id: Long): Post {
-//        return repository.findById(id)
-//            .orElseThrow { RuntimeException("Post not found with id: $id") }
-//    }
-//
-//    fun getList(page: Int, size: Int): Page<Post> {
-//        return repository.findAll(PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")))
-//    }
+    fun get(id: Long): Post {
+        return repository.findById(id)
+            .orElseThrow { RuntimeException("Post not found with id: $id") }
+    }
+
+    fun getList(page: Int, size: Int): Page<Post> {
+        return repository.findAll(PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")))
+    }
 }

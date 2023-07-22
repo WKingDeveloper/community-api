@@ -4,6 +4,9 @@ scalar Timestamp
 type Query {
     board(id: ID!): Board
     boards(page: Int, size: Int) : BoardConnection!
+
+    post(id: ID!): Post
+    posts(page: Int, size: Int) : PostConnection!
 }
 
 type Mutation {

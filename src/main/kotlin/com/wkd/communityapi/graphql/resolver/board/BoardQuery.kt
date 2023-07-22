@@ -30,7 +30,7 @@ class BoardQuery(
         @InputArgument size: Int? = 10,
     ): Connection<Board> {
 
-        logger.info("NotificationResolver -> boards() : page : $page, size: $size")
+        logger.info("BoardQuery -> boards() : page : $page, size: $size")
 
         val boards = boardService.getList(page ?: 1, size ?: 10)
 
