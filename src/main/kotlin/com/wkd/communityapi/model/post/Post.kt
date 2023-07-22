@@ -32,5 +32,5 @@ data class Post(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardId")
-    val board: Board? = null
+    val board: Board
 )

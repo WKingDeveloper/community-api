@@ -1,6 +1,7 @@
 package com.wkd.communityapi.service.board
 
 import com.wkd.communityapi.model.board.BoardParam
+import jakarta.transaction.Transactional
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -8,6 +9,7 @@ import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
+@Transactional
 @SpringBootTest(properties = ["spring.config.location=classpath:application-test.yml"])
 class BoardServiceTest @Autowired constructor(
     private val service: BoardService,
@@ -43,9 +45,9 @@ class BoardServiceTest @Autowired constructor(
 
     @Test
     fun getList() {
-        val result = service.getList(1, 3)
+        val result = service.getList(1, 5)
 
-        assertEquals(3, result.size)
+        assertEquals(5, result.content.size)
         assertEquals(7, result.totalElements)
     }
 
