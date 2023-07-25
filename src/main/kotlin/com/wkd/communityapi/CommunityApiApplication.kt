@@ -12,7 +12,6 @@ fun main(args: Array<String>) {
 
 /**
  * Todo
- * - board 응답 형태 변경
  * - user entity 추가
  *      - spring security, JWT , Schema 권한
  *      - dataloader 적용 (post)

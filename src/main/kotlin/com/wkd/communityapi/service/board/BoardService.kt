@@ -5,9 +5,6 @@ import com.wkd.communityapi.model.board.Board
 import com.wkd.communityapi.model.board.BoardParam
 import com.wkd.communityapi.repository.board.BoardRepository
 import jakarta.transaction.Transactional
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 
 @Service
@@ -31,7 +28,21 @@ class BoardService(
             .orElseThrow { NotFoundBoardException() }
     }
 
-    fun getList(page: Int, size: Int): Page<Board> {
-        return repository.findAll(PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")))
+    fun getList(): List<Board> {
+        return generateResponse(repository.findAll())
+    }
+
+    private fun generateResponse(boards: List<Board>): List<Board> {
+        var parentTags: MutableList<Board> = mutableListOf()
+
+        boards.forEach { board ->
+            if (board.parentBoardId == null) {
+                parentTags.add(board)
+            } else {
+                val parentTag = parentTags.filter { tag -> tag.id == board.parentBoardId }.first()
+                parentTag.childTags.add(board)
+            }
+        }
+        return parentTags;
     }
 }

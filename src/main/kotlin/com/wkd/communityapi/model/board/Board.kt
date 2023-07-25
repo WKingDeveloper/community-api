@@ -27,6 +27,8 @@ class Board(
 
     @Column
     val deletedAt: Timestamp? = null,
+) : EntityBase() {
 
-
-    ) : EntityBase()
+    @Transient
+    val childTags = mutableListOf<Board>()
+}

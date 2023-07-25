@@ -3,8 +3,6 @@ package com.wkd.communityapi.graphql.resolver.board
 import com.netflix.graphql.dgs.*
 import com.wkd.communityapi.annotation.Logger
 import com.wkd.communityapi.annotation.Logger.Companion.logger
-import com.wkd.communityapi.graphql.relay.Connection
-import com.wkd.communityapi.graphql.relay.PagingTool
 import com.wkd.communityapi.model.board.Board
 import com.wkd.communityapi.service.board.BoardService
 
@@ -33,21 +31,11 @@ class BoardQuery(
     @DgsData(parentType = TYPE_NAME)
     fun boards(
         env: DgsDataFetchingEnvironment,
-        @InputArgument page: Int? = 1,
-        @InputArgument size: Int? = 10,
-    ): Connection<Board> {
+    ): List<Board> {
 
-        logger.info("BoardQuery -> boards() : page : $page, size: $size")
+        logger.info("BoardQuery -> boards()")
 
-        val boards = boardService.getList(page ?: 1, size ?: 10)
-
-        val boardConnection = Connection(
-            boards
-        ) {
-            PagingTool.convertToCursor(Board::class.java.simpleName, it.id)
-        }
-
-        return boardConnection
+        return boardService.getList()
     }
 }
 

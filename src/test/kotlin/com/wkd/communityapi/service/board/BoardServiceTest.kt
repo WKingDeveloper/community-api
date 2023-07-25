@@ -52,10 +52,9 @@ class BoardServiceTest @Autowired constructor(
 
     @Test
     fun getList() {
-        val result = service.getList(1, 5)
-
-        assertEquals(5, result.content.size)
-        assertEquals(7, result.totalElements)
+        val result = service.getList()
+        assertEquals(5, result.size)
+        assertEquals(2, result[0].childTags.size)
     }
 
 }
