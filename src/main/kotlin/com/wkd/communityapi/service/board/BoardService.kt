@@ -2,7 +2,7 @@ package com.wkd.communityapi.service.board
 
 import com.wkd.communityapi.exception.NotFoundBoardException
 import com.wkd.communityapi.model.board.Board
-import com.wkd.communityapi.model.board.BoardParam
+import com.wkd.communityapi.model.board.BoardCreateParam
 import com.wkd.communityapi.repository.board.BoardRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
@@ -13,7 +13,7 @@ class BoardService(
     private val repository: BoardRepository
 ) {
 
-    fun create(param: BoardParam): Board {
+    fun create(param: BoardCreateParam): Board {
         val board = Board(
             name = param.name,
             parentBoardId = param.parentBoardId,
@@ -24,8 +24,16 @@ class BoardService(
     }
 
     fun get(id: Long): Board {
-        return repository.findById(id)
-            .orElseThrow { NotFoundBoardException() }
+        val boards = repository.findByIdWithChildBoards(id)
+        if (boards.isEmpty()) throw NotFoundBoardException()
+        var board = boards[0]
+
+        if (boards.size > 1) {
+            boards.forEach {
+                if (it.parentBoardId != null) board.childBoards.add(it)
+            }
+        }
+        return board
     }
 
     fun getList(): List<Board> {
@@ -33,16 +41,16 @@ class BoardService(
     }
 
     private fun generateResponse(boards: List<Board>): List<Board> {
-        var parentTags: MutableList<Board> = mutableListOf()
+        var parentBoards: MutableList<Board> = mutableListOf()
 
         boards.forEach { board ->
             if (board.parentBoardId == null) {
-                parentTags.add(board)
+                parentBoards.add(board)
             } else {
-                val parentTag = parentTags.filter { tag -> tag.id == board.parentBoardId }.first()
-                parentTag.childTags.add(board)
+                val parentBoard = parentBoards.filter { tag -> tag.id == board.parentBoardId }.first()
+                parentBoard.childBoards.add(board)
             }
         }
-        return parentTags;
+        return parentBoards;
     }
 }

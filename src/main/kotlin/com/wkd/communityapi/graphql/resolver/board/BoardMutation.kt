@@ -4,7 +4,7 @@ import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
 import com.netflix.graphql.dgs.DgsMutation
 import com.netflix.graphql.dgs.InputArgument
-import com.wkd.communityapi.model.board.BoardParam
+import com.wkd.communityapi.model.board.BoardCreateParam
 import com.wkd.communityapi.service.board.BoardService
 
 @DgsComponent
@@ -14,7 +14,7 @@ class BoardMutation(
     @DgsMutation
     fun createBoard(
         env: DgsDataFetchingEnvironment,
-        @InputArgument param: BoardParam
+        @InputArgument param: BoardCreateParam
     ) = service.create(
         param
     )

@@ -30,5 +30,5 @@ class Board(
 ) : EntityBase() {
 
     @Transient
-    val childTags = mutableListOf<Board>()
+    val childBoards = mutableListOf<Board>()
 }

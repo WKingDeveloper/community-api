@@ -7,7 +7,7 @@ type Query {
 }
 
 type Mutation {
-    createBoard(param: BoardParamInput!): Board!
+    createBoard(param: BoardCreateParamInput!): Board!
     createPost(param: PostCreateParamInput!): Post!
 }
 
@@ -20,13 +20,13 @@ type Board {
     id: ID!
     name: String!
     indexNo: Int!
-    childTags: [Board!]
+    childBoards: [Board!]
     parentBoardId: Long
     status: CommonState!
     deletedAt: Timestamp
 }
 
-input BoardParamInput {
+input BoardCreateParamInput {
     name: String!
     parentBoardId: Long
     indexNo: Int!

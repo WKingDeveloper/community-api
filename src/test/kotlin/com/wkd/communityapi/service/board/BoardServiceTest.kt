@@ -1,7 +1,7 @@
 package com.wkd.communityapi.service.board
 
 import com.wkd.communityapi.exception.NotFoundBoardException
-import com.wkd.communityapi.model.board.BoardParam
+import com.wkd.communityapi.model.board.BoardCreateParam
 import jakarta.transaction.Transactional
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -22,7 +22,7 @@ class BoardServiceTest @Autowired constructor(
     )
     @ParameterizedTest
     fun create(id: Long, name: String, parentBoardId: Long, indexNo: Int) {
-        val param = BoardParam(
+        val param = BoardCreateParam(
             name = name,
             parentBoardId = if (parentBoardId == 0L) null else parentBoardId,
             indexNo = indexNo
@@ -54,7 +54,7 @@ class BoardServiceTest @Autowired constructor(
     fun getList() {
         val result = service.getList()
         assertEquals(5, result.size)
-        assertEquals(2, result[0].childTags.size)
+        assertEquals(2, result[0].childBoards.size)
     }
 
 }
