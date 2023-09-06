@@ -1,3 +1,14 @@
+# 사용 권한 검증: 로그인시 획득환 AuthorityLevel 에 따라 허용 가능한지 확인
+directive @auth(requires: [AuthorityLevel!]!) on FIELD_DEFINITION | OBJECT
+
+enum AuthorityLevel {
+    UNKNOWN
+    USER
+    HOST
+    ADMIN
+    SYSTEM
+}
+
 scalar Long
 scalar Timestamp
 
@@ -7,8 +18,8 @@ type Query {
 }
 
 type Mutation {
-    createBoard(param: BoardCreateParamInput!): Board!
-    createPost(param: PostCreateParamInput!): Post!
+    createBoard(param: BoardCreateParamInput!): Board! @auth(requires: [ADMIN])
+    createPost(param: PostCreateParamInput!): Post! @auth(requires: [USER, ADMIN])
 }
 
 type BoardContainer {
