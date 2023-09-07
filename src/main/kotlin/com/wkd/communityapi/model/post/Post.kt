@@ -2,6 +2,7 @@ package com.wkd.communityapi.model.post
 
 import com.wkd.communityapi.model.board.Board
 import com.wkd.communityapi.model.common.CommonState
+import com.wkd.communityapi.model.common.EntityBase
 import jakarta.persistence.*
 import org.hibernate.annotations.Where
 import java.sql.Timestamp
@@ -28,9 +29,10 @@ data class Post(
     @Column(nullable = false)
     val status: CommonState = CommonState.ACTIVE,
 
+    @Column(nullable = true)
     val deletedAt: Timestamp? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardId")
     val board: Board
-)
+) : EntityBase()

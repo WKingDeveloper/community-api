@@ -8,11 +8,11 @@ import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service
-@Transactional
 class BoardService(
     private val repository: BoardRepository
 ) {
 
+    @Transactional
     fun create(param: BoardCreateParam): Board {
         val board = Board(
             name = param.name,

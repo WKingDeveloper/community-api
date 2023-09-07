@@ -24,9 +24,4 @@ enum class AuthorityLevel {
      * 시스템
      */
     SYSTEM;
-
-    companion object {
-        private val values = values()
-        fun parse(value: String) = values.first { it.name.equals(value, true) }
-    }
 }

@@ -14,12 +14,12 @@ import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 
 @Service
-@Transactional
 class PostService(
     private val repository: PostRepository,
     private val boardRepository: BoardRepository
 ) {
 
+    @Transactional
     fun create(param: PostCreateParam): Post {
         val board =
             boardRepository.findById(param.boardId)
