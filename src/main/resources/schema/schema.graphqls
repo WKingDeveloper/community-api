@@ -4,7 +4,6 @@ directive @auth(requires: [AuthorityLevel!]!) on FIELD_DEFINITION | OBJECT
 enum AuthorityLevel {
     UNKNOWN
     USER
-    HOST
     ADMIN
     SYSTEM
 }

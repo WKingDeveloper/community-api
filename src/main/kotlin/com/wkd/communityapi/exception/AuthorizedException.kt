@@ -1,7 +1,6 @@
 package com.wkd.communityapi.exception
 
-import com.wkd.communityapi.model.infrastructure.AuthorityLevel
-import com.wkd.communityapi.model.infrastructure.GraphQLErrorExtensions
+import com.wkd.communityapi.model.auth.AuthorityLevel
 
 class NotAuthorizedException(
     private val requires: Array<AuthorityLevel>,

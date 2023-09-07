@@ -4,7 +4,7 @@ import com.netflix.graphql.dgs.DgsDirective
 import com.netflix.graphql.dgs.context.DgsContext.Companion.getRequestData
 import com.netflix.graphql.dgs.internal.DgsRequestData
 import com.wkd.communityapi.exception.NotAuthorizedException
-import com.wkd.communityapi.model.infrastructure.AuthorityLevel
+import com.wkd.communityapi.model.auth.AuthorityLevel
 import graphql.language.ArrayValue
 import graphql.language.EnumValue
 import graphql.schema.DataFetcher

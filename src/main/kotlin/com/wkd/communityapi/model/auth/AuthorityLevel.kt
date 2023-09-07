@@ -1,4 +1,4 @@
-package com.wkd.communityapi.model.infrastructure;
+package com.wkd.communityapi.model.auth;
 
 /**
  * AuthorityLevel
