@@ -14,11 +14,13 @@ scalar Timestamp
 type Query {
     boardContainer: BoardContainer
     postContainer: PostContainer
+    userContainer: UserContainer
 }
 
 type Mutation {
-    createBoard(param: BoardCreateParamInput!): Board! @auth(requires: [ADMIN])
-    createPost(param: PostCreateParamInput!): Post! @auth(requires: [USER, ADMIN])
+    createBoard(param: BoardCreateParamInput!): Board! @auth(requires: [ADMIN, SYSTEM])
+    createPost(param: PostCreateParamInput!): Post! @auth(requires: [USER, ADMIN, SYSTEM])
+    createUser(param: UserCreateParamInput!): User! @auth(requires: [UNKNOWN, ADMIN, SYSTEM])
 }
 
 type BoardContainer {
@@ -76,9 +78,21 @@ input PostCreateParamInput {
     boardId: Long!
 }
 
-type PageInfo {
-    hasNextPage: Boolean!
-    endCursor: String
+type UserContainer {
+    user(id: ID!): User
+}
+
+type User {
+    id: ID!
+    email: String!
+    authorityLevel: AuthorityLevel!
+    status: CommonState!
+}
+
+input UserCreateParamInput {
+    email: String!
+    password: String!
+    authorityLevel: AuthorityLevel
 }
 
 enum CommonState {
@@ -87,3 +101,7 @@ enum CommonState {
     DELETED
 }
 
+type PageInfo {
+    hasNextPage: Boolean!
+    endCursor: String
+}
