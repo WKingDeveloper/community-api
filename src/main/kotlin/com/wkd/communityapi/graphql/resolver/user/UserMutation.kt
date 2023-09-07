@@ -9,13 +9,13 @@ import com.wkd.communityapi.service.user.UserService
 
 @DgsComponent
 class UserMutation(
-    private val service: UserService,
+    private val userService: UserService
 ) {
     @DgsMutation
     fun createUser(
         env: DgsDataFetchingEnvironment,
         @InputArgument param: UserCreateParam
-    ) = service.create(
+    ) = userService.create(
         param
     )
 }

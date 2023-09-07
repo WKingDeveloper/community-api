@@ -9,13 +9,13 @@ import com.wkd.communityapi.service.board.BoardService
 
 @DgsComponent
 class BoardMutation(
-    private val service: BoardService,
+    private val boardService: BoardService
 ) {
     @DgsMutation
     fun createBoard(
         env: DgsDataFetchingEnvironment,
         @InputArgument param: BoardCreateParam
-    ) = service.create(
+    ) = boardService.create(
         param
     )
 }

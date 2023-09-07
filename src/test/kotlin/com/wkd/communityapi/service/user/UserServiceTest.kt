@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @Transactional
 @SpringBootTest(properties = ["spring.config.location=classpath:application-test.yml"])
 class UserServiceTest @Autowired constructor(
-    private val service: UserService,
+    private val userService: UserService
 ) {
 
     @CsvSource(
@@ -27,7 +27,7 @@ class UserServiceTest @Autowired constructor(
             authorityLevel = AuthorityLevel.valueOf(authorityLevel)
         )
 
-        val result = service.create(param)
+        val result = userService.create(param)
 
         assertEquals(id, result.id)
         assertEquals(email, result.email)
@@ -37,7 +37,7 @@ class UserServiceTest @Autowired constructor(
 
     @Test
     fun get() {
-        val result = service.getById(1L)
+        val result = userService.getById(1L)
         assertEquals(1L, result.id)
         assertEquals("user@wkd.com", result.email)
         assertEquals("user12!@", result.password)

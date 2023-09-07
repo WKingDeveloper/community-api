@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @Transactional
 @SpringBootTest(properties = ["spring.config.location=classpath:application-test.yml"])
 class BoardServiceTest @Autowired constructor(
-    private val service: BoardService,
+    private val boardService: BoardService
 ) {
 
     @CsvSource(
@@ -28,7 +28,7 @@ class BoardServiceTest @Autowired constructor(
             indexNo = indexNo
         )
 
-        val result = service.create(param)
+        val result = boardService.create(param)
 
         assertEquals(id, result.id)
         assertEquals(name, result.name)
@@ -38,7 +38,7 @@ class BoardServiceTest @Autowired constructor(
 
     @Test
     fun get() {
-        val result = service.get(1L)
+        val result = boardService.get(1L)
         assertEquals(1L, result.id)
         assertEquals("지식", result.name)
         assertEquals(null, result.parentBoardId)
@@ -47,12 +47,12 @@ class BoardServiceTest @Autowired constructor(
 
     @Test
     fun `get failed - NotFound Id`() {
-        assertThrows(NotFoundBoardException::class.java) { service.get(10L) }
+        assertThrows(NotFoundBoardException::class.java) { boardService.get(10L) }
     }
 
     @Test
     fun getList() {
-        val result = service.getList()
+        val result = boardService.getList()
         assertEquals(5, result.size)
         assertEquals(2, result[0].childBoards.size)
     }

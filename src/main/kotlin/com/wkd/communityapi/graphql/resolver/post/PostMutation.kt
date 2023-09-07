@@ -9,13 +9,13 @@ import com.wkd.communityapi.service.post.PostService
 
 @DgsComponent
 class PostMutation(
-    private val service: PostService,
+    private val postService: PostService
 ) {
     @DgsMutation
     fun createPost(
         env: DgsDataFetchingEnvironment,
         @InputArgument param: PostCreateParam
-    ) = service.create(
+    ) = postService.create(
         param
     )
 }

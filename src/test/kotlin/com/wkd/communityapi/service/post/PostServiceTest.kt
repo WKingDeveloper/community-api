@@ -16,7 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @Transactional
 @SpringBootTest(properties = ["spring.config.location=classpath:application-test.yml"])
 class PostServiceTest @Autowired constructor(
-    private val service: PostService,
+    private val postService: PostService
 ) {
 
     @CsvSource(
@@ -30,7 +30,7 @@ class PostServiceTest @Autowired constructor(
             boardId = boardId
         )
 
-        val result = service.create(param)
+        val result = postService.create(param)
 
         assertEquals(id, result.id)
         assertEquals(title, result.title)
@@ -41,7 +41,7 @@ class PostServiceTest @Autowired constructor(
     @Test
     fun `create failed - NotFound Board Id`() {
         assertThrows(NotFoundBoardException::class.java) {
-            service.create(
+            postService.create(
                 PostCreateParam(
                     title = "제목",
                     content = "내용",
@@ -54,7 +54,7 @@ class PostServiceTest @Autowired constructor(
     @Test
     fun `create failed - BadRequest Board Id`() {
         assertThrows(BadRequestPostCreateException::class.java) {
-            service.create(
+            postService.create(
                 PostCreateParam(
                     title = "제목",
                     content = "내용",
@@ -66,7 +66,7 @@ class PostServiceTest @Autowired constructor(
 
     @Test
     fun get() {
-        val result = service.get(1L)
+        val result = postService.get(1L)
         assertEquals(1L, result.id)
         assertEquals("글 제목", result.title)
         assertEquals("글 내용", result.content)
@@ -75,12 +75,12 @@ class PostServiceTest @Autowired constructor(
 
     @Test
     fun `get failed - NotFound Id`() {
-        assertThrows(NotFoundPostException::class.java) { service.get(10L) }
+        assertThrows(NotFoundPostException::class.java) { postService.get(10L) }
     }
 
     @Test
     fun getList() {
-        val result = service.getList(1, 10)
+        val result = postService.getList(1, 10)
         assertEquals(2, result.content.size)
         assertEquals(2, result.totalElements)
     }

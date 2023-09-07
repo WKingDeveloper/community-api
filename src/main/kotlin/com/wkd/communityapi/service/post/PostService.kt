@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class PostService(
-    private val repository: PostRepository,
+    private val postRepository: PostRepository,
     private val boardRepository: BoardRepository
 ) {
 
@@ -33,15 +33,15 @@ class PostService(
             board = board
         )
 
-        return repository.save(post)
+        return postRepository.save(post)
     }
 
     fun get(id: Long): Post {
-        return repository.findById(id)
+        return postRepository.findById(id)
             .orElseThrow { NotFoundPostException() }
     }
 
     fun getList(page: Int, size: Int): Page<Post> {
-        return repository.findAll(PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")))
+        return postRepository.findAll(PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")))
     }
 }

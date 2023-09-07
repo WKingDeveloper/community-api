@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class BoardService(
-    private val repository: BoardRepository
+    private val boardRepository: BoardRepository
 ) {
 
     @Transactional
@@ -20,11 +20,11 @@ class BoardService(
             indexNo = param.indexNo
         )
 
-        return repository.save(board)
+        return boardRepository.save(board)
     }
 
     fun get(id: Long): Board {
-        val boards = repository.findByIdWithChildBoards(id)
+        val boards = boardRepository.findByIdWithChildBoards(id)
         if (boards.isEmpty()) throw NotFoundBoardException()
         var board = boards[0]
 
@@ -37,7 +37,7 @@ class BoardService(
     }
 
     fun getList(): List<Board> {
-        return generateResponse(repository.findAll())
+        return generateResponse(boardRepository.findAll())
     }
 
     private fun generateResponse(boards: List<Board>): List<Board> {
