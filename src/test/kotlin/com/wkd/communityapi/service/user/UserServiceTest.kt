@@ -1,8 +1,10 @@
 package com.wkd.communityapi.service.user
 
+import com.wkd.communityapi.exception.NotFoundUserException
 import com.wkd.communityapi.model.auth.AuthorityLevel
 import com.wkd.communityapi.model.user.UserCreateParam
 import jakarta.transaction.Transactional
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -36,12 +38,17 @@ class UserServiceTest @Autowired constructor(
     }
 
     @Test
-    fun get() {
+    fun getById() {
         val result = userService.getById(1L)
         assertEquals(1L, result.id)
         assertEquals("user@wkd.com", result.email)
         assertEquals("user12!@", result.password)
         assertEquals(AuthorityLevel.USER, result.authorityLevel)
+    }
+
+    @Test
+    fun `getById failed - NotFound Id`() {
+        Assertions.assertThrows(NotFoundUserException::class.java) { userService.getById(3L) }
     }
 
 }
