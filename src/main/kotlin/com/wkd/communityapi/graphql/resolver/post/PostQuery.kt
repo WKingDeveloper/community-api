@@ -26,7 +26,7 @@ class PostQuery(
 
     @DgsData(parentType = TYPE_NAME)
     fun post(@InputArgument id: Long, env: DgsDataFetchingEnvironment): Post {
-        logger.info("postQuery -> post()")
+        logger.info("postQuery -> post() id : $id")
         return postService.get(id)
     }
 

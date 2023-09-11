@@ -51,4 +51,10 @@ class UserServiceTest @Autowired constructor(
         Assertions.assertThrows(NotFoundUserException::class.java) { userService.getById(3L) }
     }
 
+    @Test
+    fun getList() {
+        val result = userService.getList(1, 10)
+        assertEquals(2, result.content.size)
+        assertEquals(2, result.totalElements)
+    }
 }

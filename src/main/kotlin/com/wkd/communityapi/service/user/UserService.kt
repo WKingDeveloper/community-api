@@ -7,6 +7,9 @@ import com.wkd.communityapi.model.user.User
 import com.wkd.communityapi.model.user.UserCreateParam
 import com.wkd.communityapi.repository.user.UserRepository
 import jakarta.transaction.Transactional
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 
 @Logger
@@ -29,5 +32,9 @@ class UserService(
     fun getById(id: Long): User {
         return userRepository.findById(id)
             .orElseThrow { NotFoundUserException() }
+    }
+
+    fun getList(page: Int, size: Int): Page<User> {
+        return userRepository.findAll(PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")))
     }
 }

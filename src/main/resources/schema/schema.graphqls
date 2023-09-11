@@ -80,6 +80,7 @@ input PostCreateParamInput {
 
 type UserContainer {
     user(id: ID!): User
+    users(page: Int, size: Int) : UserConnection!
 }
 
 type User {
@@ -87,6 +88,17 @@ type User {
     email: String!
     authorityLevel: AuthorityLevel!
     status: CommonState!
+}
+
+type UserConnection {
+    totalCount: Int!
+    pageInfo: PageInfo!
+    edges: [UserEdge!]!
+}
+
+type UserEdge {
+    cursor: String!
+    node: User!
 }
 
 input UserCreateParamInput {

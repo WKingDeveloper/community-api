@@ -24,7 +24,7 @@ class BoardQuery(
 
     @DgsData(parentType = TYPE_NAME)
     fun board(@InputArgument id: Long, env: DgsDataFetchingEnvironment): Board {
-        logger.info("BoardQuery -> board() id: $id")
+        logger.info("BoardQuery -> board() id : $id")
         return boardService.get(id)
     }
 
