@@ -3,6 +3,7 @@ package com.wkd.communityapi.service.user
 import com.wkd.communityapi.annotation.Logger
 import com.wkd.communityapi.exception.NotFoundUserException
 import com.wkd.communityapi.model.auth.AuthorityLevel
+import com.wkd.communityapi.model.user.LoginParam
 import com.wkd.communityapi.model.user.User
 import com.wkd.communityapi.model.user.UserCreateParam
 import com.wkd.communityapi.repository.user.UserRepository
@@ -39,4 +40,13 @@ class UserService(
     fun getList(page: Int, size: Int): Page<User> {
         return userRepository.findAll(PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")))
     }
+
+    fun login(param: LoginParam): User {
+        val user = userRepository.findByEmail(param.email)
+            .orElseThrow { NotFoundUserException() }
+
+        val matches = bCryptPasswordEncoder.matches(param.password, user.password)
+        return if (matches) user else throw NotFoundUserException()
+    }
+
 }

@@ -21,6 +21,7 @@ type Mutation {
     createBoard(param: BoardCreateParamInput!): Board! @auth(requires: [ADMIN, SYSTEM])
     createPost(param: PostCreateParamInput!): Post! @auth(requires: [USER, ADMIN, SYSTEM])
     createUser(param: UserCreateParamInput!): User! @auth(requires: [UNKNOWN, ADMIN, SYSTEM])
+    login(param: LoginParamInput!): User! @auth(requires: [UNKNOWN, ADMIN, SYSTEM])
 }
 
 type BoardContainer {
@@ -116,4 +117,9 @@ enum CommonState {
 type PageInfo {
     hasNextPage: Boolean!
     endCursor: String
+}
+
+input LoginParamInput {
+    email: String!
+    password: String!
 }
