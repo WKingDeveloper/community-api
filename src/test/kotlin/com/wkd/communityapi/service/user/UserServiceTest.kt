@@ -2,8 +2,8 @@ package com.wkd.communityapi.service.user
 
 import com.wkd.communityapi.exception.NotFoundUserException
 import com.wkd.communityapi.model.auth.AuthorityLevel
-import com.wkd.communityapi.model.user.LoginParam
-import com.wkd.communityapi.model.user.UserCreateParam
+import com.wkd.communityapi.model.user.SignInParam
+import com.wkd.communityapi.model.user.SignUpParam
 import jakarta.transaction.Transactional
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -28,14 +28,14 @@ class UserServiceTest @Autowired constructor(
     @Transactional
     @Rollback(false)
     @Order(1)
-    fun create(id: Long, email: String, password: String, authorityLevel: String) {
-        val param = UserCreateParam(
+    fun signUp(id: Long, email: String, password: String, authorityLevel: String) {
+        val param = SignUpParam(
             email = email,
             password = password,
             authorityLevel = AuthorityLevel.valueOf(authorityLevel)
         )
 
-        val result = userService.create(param)
+        val result = userService.signUp(param)
 
         assertEquals(id, result.id)
         assertEquals(email, result.email)
@@ -69,33 +69,33 @@ class UserServiceTest @Autowired constructor(
 
     @Test
     @Order(5)
-    fun `login success`() {
-        val param = LoginParam(
+    fun `signIn success`() {
+        val param = SignInParam(
             email = "user2@wkd.com",
             password = "user2!!"
         )
 
-        val user = userService.login(param)
+        val user = userService.signIn(param)
         assertEquals(1, user.id)
     }
 
     @Test
     @Order(6)
-    fun `login failed - wrong email`() {
-        val param = LoginParam(
+    fun `signIn failed - wrong email`() {
+        val param = SignInParam(
             email = "user23@wkd.com",
             password = "user2!!"
         )
-        Assertions.assertThrows(NotFoundUserException::class.java) { userService.login(param) }
+        Assertions.assertThrows(NotFoundUserException::class.java) { userService.signIn(param) }
     }
 
     @Test
     @Order(7)
-    fun `login failed - wrong password`() {
-        val param = LoginParam(
+    fun `signIn failed - wrong password`() {
+        val param = SignInParam(
             email = "user2@wkd.com",
             password = "user2!@"
         )
-        Assertions.assertThrows(NotFoundUserException::class.java) { userService.login(param) }
+        Assertions.assertThrows(NotFoundUserException::class.java) { userService.signIn(param) }
     }
 }

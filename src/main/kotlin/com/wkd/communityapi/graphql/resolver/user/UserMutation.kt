@@ -5,8 +5,9 @@ import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
 import com.netflix.graphql.dgs.DgsMutation
 import com.netflix.graphql.dgs.InputArgument
 import com.wkd.communityapi.annotation.Logger.Companion.logger
-import com.wkd.communityapi.model.user.LoginParam
-import com.wkd.communityapi.model.user.UserCreateParam
+import com.wkd.communityapi.model.user.SignInParam
+import com.wkd.communityapi.model.user.SignUpParam
+import com.wkd.communityapi.model.user.User
 import com.wkd.communityapi.service.user.UserService
 
 @DgsComponent
@@ -14,20 +15,20 @@ class UserMutation(
     private val userService: UserService
 ) {
     @DgsMutation
-    fun createUser(
+    fun signUp(
         env: DgsDataFetchingEnvironment,
-        @InputArgument param: UserCreateParam
-    ) {
-        logger.info("UserMutation -> createUser() param : $param")
-        userService.create(param)
+        @InputArgument param: SignUpParam
+    ): User {
+        logger.info("UserMutation -> signUp() param : $param")
+        return userService.signUp(param)
     }
 
     @DgsMutation
-    fun login(
+    fun signIn(
         env: DgsDataFetchingEnvironment,
-        @InputArgument param: LoginParam
-    ) {
-        logger.info("UserMutation -> login() param : $param")
-        userService.login(param)
+        @InputArgument param: SignInParam
+    ): User {
+        logger.info("UserMutation -> signIn() param : $param")
+        return userService.signIn(param)
     }
 }

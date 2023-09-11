@@ -3,9 +3,9 @@ package com.wkd.communityapi.service.user
 import com.wkd.communityapi.annotation.Logger
 import com.wkd.communityapi.exception.NotFoundUserException
 import com.wkd.communityapi.model.auth.AuthorityLevel
-import com.wkd.communityapi.model.user.LoginParam
+import com.wkd.communityapi.model.user.SignInParam
+import com.wkd.communityapi.model.user.SignUpParam
 import com.wkd.communityapi.model.user.User
-import com.wkd.communityapi.model.user.UserCreateParam
 import com.wkd.communityapi.repository.user.UserRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page
@@ -22,7 +22,7 @@ class UserService(
 ) {
 
     @Transactional
-    fun create(param: UserCreateParam): User {
+    fun signUp(param: SignUpParam): User {
         val user = User(
             email = param.email,
             password = bCryptPasswordEncoder.encode(param.password),
@@ -41,7 +41,7 @@ class UserService(
         return userRepository.findAll(PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id")))
     }
 
-    fun login(param: LoginParam): User {
+    fun signIn(param: SignInParam): User {
         val user = userRepository.findByEmail(param.email)
             .orElseThrow { NotFoundUserException() }
 

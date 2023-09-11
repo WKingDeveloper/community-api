@@ -18,10 +18,10 @@ type Query {
 }
 
 type Mutation {
-    createBoard(param: BoardCreateParamInput!): Board! @auth(requires: [ADMIN, SYSTEM])
-    createPost(param: PostCreateParamInput!): Post! @auth(requires: [USER, ADMIN, SYSTEM])
-    createUser(param: UserCreateParamInput!): User! @auth(requires: [UNKNOWN, ADMIN, SYSTEM])
-    login(param: LoginParamInput!): User! @auth(requires: [UNKNOWN, ADMIN, SYSTEM])
+    createBoard(param: BoardCreateParam!): Board! @auth(requires: [ADMIN, SYSTEM])
+    createPost(param: PostCreateParam!): Post! @auth(requires: [USER, ADMIN, SYSTEM])
+    signUp(param: SignUpParam!): User! @auth(requires: [UNKNOWN, ADMIN, SYSTEM])
+    signIn(param: SignInParam!): User! @auth(requires: [UNKNOWN, ADMIN, SYSTEM])
 }
 
 type BoardContainer {
@@ -39,7 +39,7 @@ type Board {
     deletedAt: Timestamp
 }
 
-input BoardCreateParamInput {
+input BoardCreateParam {
     name: String!
     parentBoardId: Long
     indexNo: Int!
@@ -73,7 +73,7 @@ type PostEdge {
     node: Post!
 }
 
-input PostCreateParamInput {
+input PostCreateParam {
     title: String!
     content: String!
     boardId: Long!
@@ -102,7 +102,7 @@ type UserEdge {
     node: User!
 }
 
-input UserCreateParamInput {
+input SignUpParam {
     email: String!
     password: String!
     authorityLevel: AuthorityLevel
@@ -119,7 +119,7 @@ type PageInfo {
     endCursor: String
 }
 
-input LoginParamInput {
+input SignInParam {
     email: String!
     password: String!
 }
