@@ -10,19 +10,21 @@ import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Logger
 @Service
 class UserService(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val bCryptPasswordEncoder: BCryptPasswordEncoder
 ) {
 
     @Transactional
     fun create(param: UserCreateParam): User {
         val user = User(
             email = param.email,
-            password = param.password,
+            password = bCryptPasswordEncoder.encode(param.password),
             authorityLevel = param.authorityLevel ?: AuthorityLevel.USER
         )
 

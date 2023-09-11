@@ -11,7 +11,6 @@ import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
-@Transactional
 @SpringBootTest(properties = ["spring.config.location=classpath:application-test.yml"])
 class BoardServiceTest @Autowired constructor(
     private val boardService: BoardService
@@ -21,6 +20,7 @@ class BoardServiceTest @Autowired constructor(
         value = ["8,정보,0,0", "9,질문답변,0,8", "10,꿀팁,1,8"]
     )
     @ParameterizedTest
+    @Transactional
     fun create(id: Long, name: String, parentBoardId: Long, indexNo: Int) {
         val param = BoardCreateParam(
             name = name,

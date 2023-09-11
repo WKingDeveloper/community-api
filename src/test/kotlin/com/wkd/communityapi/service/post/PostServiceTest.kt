@@ -13,7 +13,6 @@ import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
-@Transactional
 @SpringBootTest(properties = ["spring.config.location=classpath:application-test.yml"])
 class PostServiceTest @Autowired constructor(
     private val postService: PostService
@@ -23,6 +22,7 @@ class PostServiceTest @Autowired constructor(
         value = ["3,글 추가1,글 내용1,6", "4,글 추가2,글 내용2,7", "5,글 추가3,글 내용3,6"]
     )
     @ParameterizedTest
+    @Transactional
     fun create(id: Long, title: String, content: String, boardId: Long) {
         val param = PostCreateParam(
             title = title,
