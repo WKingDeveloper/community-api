@@ -5,6 +5,7 @@ import com.netflix.graphql.dgs.context.DgsContext.Companion.getRequestData
 import com.netflix.graphql.dgs.internal.DgsRequestData
 import com.wkd.communityapi.exception.NotAuthorizedException
 import com.wkd.communityapi.model.auth.AuthorityLevel
+import com.wkd.communityapi.service.user.UserService
 import graphql.language.ArrayValue
 import graphql.language.EnumValue
 import graphql.schema.DataFetcher
@@ -15,7 +16,9 @@ import graphql.schema.idl.SchemaDirectiveWiringEnvironment
 
 
 @DgsDirective
-class AuthDirectiveWiring : SchemaDirectiveWiring {
+class AuthDirectiveWiring(
+    private val userService: UserService
+) : SchemaDirectiveWiring {
     companion object {
         const val DIRECTIVE_NAME = "auth"
         const val REQUIRES_ATTR = "requires"
@@ -52,7 +55,10 @@ class AuthDirectiveWiring : SchemaDirectiveWiring {
         originalDataFetcher: DataFetcher<*>
     ): Any {
         val requestData: DgsRequestData? = getRequestData(env)
-        val authorityLevel = requestData?.headers!!.getFirst("xf-authority-level") ?: "UNKNOWN"
+        val userId = requestData?.headers!!.getFirst("xf-user-id") ?: "0"
+
+        val authorityLevel =
+            if (userId == "0") AuthorityLevel.UNKNOWN else userService.getById(userId.toLong()).authorityLevel
 
         requires?.run {
             validateAuthority(authorityLevel, appendSystemLevel(requires))
@@ -60,9 +66,9 @@ class AuthDirectiveWiring : SchemaDirectiveWiring {
         return originalDataFetcher.get(env)
     }
 
-    private fun validateAuthority(authorityLevel: String, requires: Array<AuthorityLevel>) {
-        if (!requires.contains(AuthorityLevel.valueOf(authorityLevel))) {
-            throw NotAuthorizedException(requires, AuthorityLevel.valueOf(authorityLevel))
+    private fun validateAuthority(authorityLevel: AuthorityLevel, requires: Array<AuthorityLevel>) {
+        if (!requires.contains(authorityLevel)) {
+            throw NotAuthorizedException(requires, authorityLevel)
         }
     }
 
